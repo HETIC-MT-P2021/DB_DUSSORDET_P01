@@ -36,7 +36,6 @@ func Connect() error {
 		DbName + "?parseTime=true&charset=utf8"
 
 	db, err := sql.Open("mysql", dsn)
-
 	if err != nil {
 		return err
 	}

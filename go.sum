@@ -1,4 +1,3 @@
-github.com/Traineau/go-event v0.0.0-20200909100740-e46a4baf23bc h1:aAq8ebN0USrnkJd90CAlUcUoo0rSMYzd7FASQpC6fug=
 github.com/caarlos0/env/v6 v6.3.0 h1:PaqGnS5iHScZ5SnZNBPvQbA2VE/eMAwlp51mKGuEZLg=
 github.com/caarlos0/env/v6 v6.3.0/go.mod h1:nXKfztzgWXH0C5Adnp+gb+vXHmMjKdBnMrSVSczSkiw=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=

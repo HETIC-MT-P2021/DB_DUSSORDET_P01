@@ -6,9 +6,9 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_USER: goproject
-      MYSQL_PASSWORD: goproject
-      MYSQL_DATABASE: image_goproject
+      MYSQL_USER: go_db_exercise
+      MYSQL_PASSWORD: go_db_exercise
+      MYSQL_DATABASE: classicmodels
       MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
       DB_HOST: tcp(db:3306)
     volumes:
@@ -23,9 +23,9 @@ services:
       dockerfile: ./docker/build/golang/Dockerfile
     environment:
       API_PORT: "8080"
-      MYSQL_USER: goproject
-      MYSQL_PASSWORD: goproject
-      MYSQL_DATABASE: image_goproject
+      MYSQL_USER: go_db_exercise
+      MYSQL_PASSWORD: go_db_exercise
+      MYSQL_DATABASE: classicmodels
       DB_HOST: tcp(db:3306)
     ports:
       - "8080:8080"

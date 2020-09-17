@@ -1,8 +1,8 @@
 package main
 
 import (
-	"goevent/database"
-	"goevent/router"
+	"go_exercise/database"
+	"go_exercise/router"
 	"log"
 	"net/http"
 )

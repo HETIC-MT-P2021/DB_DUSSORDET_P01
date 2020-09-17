@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gorilla/mux"
-	"goevent/controllers"
+	"go_exercise/controllers"
 	"net/http"
 )
 
@@ -39,5 +39,11 @@ var routes = Routes{
 		Method:      "GET",
 		Pattern:     "/",
 		HandlerFunc: controllers.RenderHome,
+	},
+	Route{
+		Name:        "Get customer by Number",
+		Method:      "GET",
+		Pattern:     "/customer/{customer_number}",
+		HandlerFunc: controllers.GetCustomerByCustomerNumber,
 	},
 }

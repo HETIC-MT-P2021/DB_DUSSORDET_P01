@@ -6,15 +6,14 @@ import (
 
 //Employee is an employee DTO
 type Employee struct {
-	Number        int                 `json:"employee_number"`
-	LastName      string              `json:"last_name"`
-	FirstName     string              `json:"first_name"`
-	Extension     string              `json:"extension"`
-	Email         string              `json:"email"`
-	OfficeCountry string              `json:"office_country"`
-	OfficeCity    string              `json:"office_city"`
-	ReportsTo     database.NullString `json:"reports_to,omitempty"` //@toDo Select on self referencing table
-	JobTitle      string              `json:"job_title"`
+	Number        int    `json:"employee_number"`
+	LastName      string `json:"last_name"`
+	FirstName     string `json:"first_name"`
+	Extension     string `json:"extension,omitempty"`
+	Email         string `json:"email,omitempty"`
+	OfficeCountry string `json:"office_country,omitempty"`
+	OfficeCity    string `json:"office_city,omitempty"`
+	JobTitle      string `json:"job_title,omitempty"`
 }
 
 //Office is an office DTO

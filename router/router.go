@@ -70,4 +70,10 @@ var routes = Routes{
 		Pattern:     "/employees",
 		HandlerFunc: controllers.GetAllEmployees,
 	},
+	Route{
+		Name:        "Get an office with its employees",
+		Method:      "GET",
+		Pattern:     "/offices/{office_code}",
+		HandlerFunc: controllers.GetOfficeWithEmployees,
+	},
 }

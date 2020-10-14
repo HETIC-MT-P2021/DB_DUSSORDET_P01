@@ -2,7 +2,9 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 	"go_exercise/database"
+	"strings"
 	"time"
 )
 
@@ -203,30 +205,35 @@ WHERE
 }
 
 //GetEmployees repository method to get all employees
-func (repository *Repository) GetEmployees() ([]*Employee, error) {
+func (repository *Repository) GetEmployees(reducedInfoByOfficeCode bool, officeCode string) ([]*Employee,
+	error) {
 	var employees []*Employee
-	rows, err := repository.Conn.Query(`SELECT
-	e.employeeNumber,
-	e.lastName,
-	e.firstName,
-	e.extension,
-	e.email,
-	o.country AS office_country,
-	o.city AS office_city,
-	e.jobTitle
-FROM
-	employees e
-	INNER JOIN offices o ON e.officeCode = o.officeCode;
-`)
-	if err != nil {
-		return nil, err
-	}
+	var scan []interface{}
 	var employeeNumber int
 	var lastName, firstName, extension, email, country, city, jobTitle string
 
+	scan = append(scan, &employeeNumber, &lastName, &firstName)
+
+	queryFields := []string{"e.employeeNumber", "e.lastName", "e.firstName"}
+	if !reducedInfoByOfficeCode {
+		queryFields = append(queryFields, "e.extension", "e.email",
+			"o.country AS office_country", "o.city AS office_city", "e.jobTitle")
+		scan = append(scan, &extension, &email, &country, &city, &jobTitle)
+	}
+
+	query := fmt.Sprintf("SELECT %s FROM employees e INNER JOIN offices o ON e.officeCode = o.officeCode",
+		strings.Join(queryFields, ","))
+	if reducedInfoByOfficeCode {
+		query += fmt.Sprintf("\nWHERE e.officeCode = %s;", officeCode)
+	}
+
+	rows, err := repository.Conn.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
 	for rows.Next() {
-		if err := rows.Scan(&employeeNumber, &lastName, &firstName, &extension, &email, &country,
-			&city, &jobTitle); err != nil {
+		if err := rows.Scan(scan...); err != nil {
 			return nil, err
 		}
 
@@ -245,4 +252,44 @@ FROM
 	}
 
 	return employees, nil
+}
+
+//GetOfficeInfo repository method to get an office information by office code
+func (repository *Repository) GetOfficeInfo(officeCode string) (*Office, error) {
+	row := repository.Conn.QueryRow(`SELECT
+	o.officeCode,
+	o.city,
+	o.phone,
+	o.addressLine1,
+	o.addressLine2,
+	o.state,
+	o.country,
+	o.postalCode,
+	o.territory
+FROM
+	offices o
+	WHERE o.officeCode = (?);`, officeCode)
+
+	var city, phone, addressLine, postalCode, country, territory string
+	var addressOptionalLine, state database.NullString
+	switch err := row.Scan(&officeCode, &city, &phone, &addressLine, &addressOptionalLine, &state,
+		&country, &postalCode, &territory); err {
+	case sql.ErrNoRows:
+		return nil, nil
+	case nil:
+		office := &Office{
+			Code:                officeCode,
+			City:                city,
+			Phone:               phone,
+			AddressLine:         addressLine,
+			AddressOptionalLine: addressOptionalLine,
+			State:               state,
+			Country:             country,
+			PostalCode:          postalCode,
+			Territory:           territory,
+		}
+		return office, nil
+	default:
+		return nil, err
+	}
 }

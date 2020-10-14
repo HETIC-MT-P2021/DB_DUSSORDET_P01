@@ -4,13 +4,13 @@ import "go_exercise/database"
 
 //Customer is a customer DTO
 type Customer struct {
-	Number                 int                  `json:"customer_number,omitempy"`
+	Number                 int                  `json:"customer_number,omitempty"`
 	Name                   string               `json:"customer_name"`
 	ContactLastName        string               `json:"contact_last_name"`
 	ContactFirstName       string               `json:"contact_first_name"`
 	Phone                  string               `json:"phone"`
 	AddressLine            string               `json:"address_line"`
-	AddressOptionalLine    database.NullString  `json:"address_optional_line,omitempty"`
+	AddressOptionalLine    database.NullString  `json:"address_optional_line"`
 	City                   string               `json:"city"`
 	State                  database.NullString  `json:"state"`
 	PostalCode             database.NullString  `json:"postal_code"`

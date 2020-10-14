@@ -10,7 +10,7 @@ type Product struct {
 	Scale           string               `json:"product_scale"`
 	Vendor          string               `json:"product_vendor"`
 	Description     string               `json:"product_description"`
-	QuantityInStock int8                 `json:"quantity_in_stock"`
+	QuantityInStock int64                `json:"quantity_in_stock"`
 	BuyPrice        database.NullFloat64 `json:"buy_price"`
 	MSRP            database.NullFloat64 `json:"msrp"`
 }

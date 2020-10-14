@@ -6,14 +6,14 @@ import (
 
 //Employee is an employee DTO
 type Employee struct {
-	Number     int                 `json:"employee_number"`
-	LastName   string              `json:"last_name"`
-	FirstName  string              `json:"first_name"`
-	Extension  string              `json:"extension"`
-	Email      string              `json:"email"`
-	OfficeCode string              `json:"office_code"`
-	ReportsTo  database.NullString `json:"reports_to"`
-	JobTitle   string              `json:"job_title"`
+	Number        int    `json:"employee_number"`
+	LastName      string `json:"last_name"`
+	FirstName     string `json:"first_name"`
+	Extension     string `json:"extension,omitempty"`
+	Email         string `json:"email,omitempty"`
+	OfficeCountry string `json:"office_country,omitempty"`
+	OfficeCity    string `json:"office_city,omitempty"`
+	JobTitle      string `json:"job_title,omitempty"`
 }
 
 //Office is an office DTO
@@ -27,4 +27,5 @@ type Office struct {
 	Country             string              `json:"country"`
 	PostalCode          string              `json:"postal_code"`
 	Territory           string              `json:"territory"`
+	Employees           []*Employee         `json:"employees"`
 }

@@ -41,9 +41,39 @@ var routes = Routes{
 		HandlerFunc: controllers.RenderHome,
 	},
 	Route{
-		Name:        "Get customer by Number",
+		Name:        "Get customer by customer number",
 		Method:      "GET",
-		Pattern:     "/customer/{customer_number}",
+		Pattern:     "/customers/{customer_number}",
 		HandlerFunc: controllers.GetCustomerByCustomerNumber,
+	},
+	Route{
+		Name:        "Get orders by customer number",
+		Method:      "GET",
+		Pattern:     "/orders/{customer_number}",
+		HandlerFunc: controllers.GetCustomerOrders,
+	},
+	Route{
+		Name:        "Get an order's product list by order number",
+		Method:      "GET",
+		Pattern:     "/orders/{order_number}/products",
+		HandlerFunc: controllers.GetOrderProductList,
+	},
+	Route{
+		Name:        "Get a product by code",
+		Method:      "GET",
+		Pattern:     "/products/{product_code}",
+		HandlerFunc: controllers.GetProductByCode,
+	},
+	Route{
+		Name:        "Get all employees",
+		Method:      "GET",
+		Pattern:     "/employees",
+		HandlerFunc: controllers.GetAllEmployees,
+	},
+	Route{
+		Name:        "Get an office with its employees",
+		Method:      "GET",
+		Pattern:     "/offices/{office_code}",
+		HandlerFunc: controllers.GetOfficeWithEmployees,
 	},
 }
